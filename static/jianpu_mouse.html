@@ -33,17 +33,29 @@ textarea{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12
 .hint b{color:var(--primary)}
 details.card summary{cursor:pointer;font-size:12px;color:var(--ink2);font-weight:600}
 .mt8{margin-top:8px}
+
+.mode-btn{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer}
+.mode-btn.on{background:#ffd970;color:#1e2942;border-color:#ffd970;font-weight:600}
+.fw-sys .mel-input{font-size:14px;min-height:44px;font-family:ui-monospace,Menlo,monospace}
+.fw-lyr{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.fw-lyr input{border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:12px;outline:none;width:100%}
+.fw-head{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:4px}
+.fw-head .fw-num{font-size:12px;color:var(--ink2);font-weight:600}
+#fwScore{overflow:auto;max-height:calc(100vh - 130px);min-height:70vh;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+#fwScore svg{max-width:100%}
 </style>
 </head>
 <body>
 <div class="top">
   <h1>🎼 简谱快速打谱（鼠标 + 键盘）</h1>
   <span>
+    <button class="mode-btn on" id="modeFree">✏ 自由编辑</button>
+    <button class="mode-btn" id="modeFw">📐 框架编辑</button>
     <a href="/jianpu">📝 文本编辑器</a>
     <a href="/#/collection">返回后台</a>
   </span>
 </div>
-<div class="wrap">
+<div class="wrap" id="wrapFree">
   <div class="left">
     <div class="card">
       <h2>📋 曲目信息</h2>
@@ -112,6 +124,80 @@ details.card summary{cursor:pointer;font-size:12px;color:var(--ink2);font-weight
   <div class="card">
     <h2>🖼 谱面预览（滚轮 = 八度）</h2>
     <div id="score"></div>
+  </div>
+</div>
+
+
+<!-- ============ 框架编辑区（按版面框架分析：页眉 + 系统1-4） ============ -->
+<div class="wrap" id="wrapFw" style="display:none">
+  <div class="left">
+    <div class="card">
+      <h2>📋 页眉区（歌名大字 · 调号拍号 · 页码）</h2>
+      <div class="meta">
+        <input id="fwTitle" placeholder="歌名（大字，居中）" value="奇异恩典">
+        <input id="fwKey" placeholder="调号 1=F" value="1=F">
+        <input id="fwMeter" placeholder="拍号 4/4" value="4/4">
+        <input id="fwAuthor" placeholder="作词" value="John Newton">
+      </div>
+      <div class="meta mt8">
+        <input id="fwComposer" placeholder="作曲" value="NEW BRITAIN">
+        <input id="fwPage" placeholder="页码（自动）" value="3">
+        <button class="btn btn-gold" id="fwFill" style="grid-column:span 2">✨ 填入示例（须将心门敞开）</button>
+      </div>
+      <div class="hint mt8">旋律框输入：数字 1-7 · # 升号 · 0 休止 · | 小节线 · 空格分隔 · <b>-</b> 二分 <b>--</b> 全音符 <b>_</b> 八分 <b>__</b> 十六分 · <b>.</b> 附点 · <b>'</b>/<b>,</b> 高低八度</div>
+    </div>
+
+    <div class="card fw-sys">
+      <div class="fw-head"><h2>🎼 系统1 · 正歌</h2><span class="fw-num">旋律 + 歌词4行</span></div>
+      <textarea class="mel-input" placeholder="旋律：5 1 1 3# 3 4 3 4 1 5 6 5 3 3 4 1 5 6 5 5"></textarea>
+      <div class="fw-lyr">
+        <input placeholder="歌词1：有一位慈悲主站在你心门外">
+        <input placeholder="歌词2：主离天庭降世为要彰显救恩">
+        <input placeholder="歌词3：他是慈爱良善且有丰盛恩惠">
+        <input placeholder="歌词4：他且要引导你到那安乐天城">
+      </div>
+    </div>
+
+    <div class="card fw-sys">
+      <div class="fw-head"><h2>🎼 系统2 · 正歌</h2><span class="fw-num">旋律 + 歌词4行</span></div>
+      <textarea class="mel-input" placeholder="旋律：4 3 1 3 2 1 2 5 1 1 3# 2 3 4 3 4 1 5 6 5 3"></textarea>
+      <div class="fw-lyr">
+        <input placeholder="歌词1：为何让他离开？他屡次耐心呼召你">
+        <input placeholder="歌词2：救世主和大君，在天父宝座前代求">
+        <input placeholder="歌词3：为他安置宝座；他等待赐福安慰">
+        <input placeholder="歌词4：的新耶路撒冷，那里永无黑夜">
+      </div>
+    </div>
+
+    <div class="card fw-sys">
+      <div class="fw-head"><h2>🎼 系统3 · 副歌</h2><span class="fw-num">旋律 + 副歌歌词×4</span></div>
+      <textarea class="mel-input" placeholder="旋律：3 1 2 2 2 1 1 2 - 2 1 3 | 1 7 1 2 1 1 - 1 5 3 2 3 4 1 3"></textarea>
+      <div class="fw-lyr">
+        <input placeholder="副歌1：你须将心门敞开">
+        <input placeholder="副歌2：你须将心门敞开">
+        <input placeholder="副歌3：你须将心门敞开">
+        <input placeholder="副歌4：你须将心门敞开">
+      </div>
+    </div>
+
+    <div class="card fw-sys">
+      <div class="fw-head"><h2>🎼 系统4 · 结束句</h2><span class="fw-num">旋律 + 歌词</span></div>
+      <textarea class="mel-input" placeholder="旋律：5 1 6 6 4 9 6 1 5 5# 3 4 1 5 3 4 3 2 1 1 2"></textarea>
+      <div class="fw-lyr" style="grid-template-columns:1fr">
+        <input placeholder="歌词：让耶稣进来，救你脱离罪恶，你须将心门敞开">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🖼 框架谱面预览（所见即所得）</h2>
+    <div id="fwScore"></div>
+    <div class="tb-row mt8">
+      <button class="btn" id="fwPng">PNG</button>
+      <button class="btn" id="fwSvg">SVG</button>
+      <button class="btn btn-green" id="fwPdf">🖨 PDF</button>
+      <button class="btn" id="fwClear">清空框架</button>
+    </div>
   </div>
 </div>
 
@@ -425,6 +511,161 @@ $("#dlPdf").addEventListener("click", () => {
 // 示例谱
 fromText("| 5 6 1' 2' | 3' 2' 1' 6 | 5 - 3 5 | 1' - - 0 |");
 render();
+
+
+// ============ 框架编辑区：按版面框架（页眉 + 系统1-4） ============
+function parseMelody(txt) {
+  const notes = [];
+  const tokens = String(txt || "").split(/\s+/).filter(Boolean);
+  for (const t of tokens) {
+    if (t.startsWith("|") || t.startsWith(":")) continue;
+    if (t.startsWith("0")) { notes.push({ pitch: 0, dur: 1, dot: false, oct: 0, tie: false, type: "r" }); continue; }
+    const m = t.match(/^([1-7])(['',]*)(_*|-*)(\.?)(~?)$/);
+    if (!m) continue;
+    const oct = (m[2].match(/'/g) || []).length - (m[2].match(/,/g) || []).length;
+    let dur = 1;
+    if (m[3] === "__") dur = 0.25; else if (m[3] === "_") dur = 0.5;
+    else if (m[3]) dur = m[3].length + 1;
+    if (dur > 4) dur = 4;
+    notes.push({ pitch: Number(m[1]), dur, dot: !!m[4], oct, tie: !!m[5], type: "n" });
+  }
+  return notes;
+}
+function fwSysCards() { return Array.from(document.querySelectorAll("#wrapFw .fw-sys")); }
+function fwState() {
+  const cards = fwSysCards();
+  return {
+    title: $("#fwTitle").value.trim() || "未命名",
+    key: $("#fwKey").value.trim(),
+    meter: $("#fwMeter").value.trim(),
+    author: $("#fwAuthor").value.trim(),
+    composer: $("#fwComposer").value.trim(),
+    page: $("#fwPage").value.trim(),
+    systems: cards.map(c => ({
+      notes: parseMelody(c.querySelector(".mel-input").value),
+      lyrics: Array.from(c.querySelectorAll(".fw-lyr input")).map(i => i.value.trim()).filter(Boolean)
+    }))
+  };
+}
+function renderFw() {
+  const fw = fwState();
+  const beatsPerBar = Number((fw.meter || "4/4").split("/")[1] || 4);
+  const W = 34, H = 40, TOP = 96, LEFT = 60, barW = beatsPerBar * W + 10;
+  // 计算总高：每个系统 = 旋律行 + 歌词行
+  let bodyH = 0;
+  fw.systems.forEach(s => {
+    bodyH += 64 + s.lyrics.length * 20 + 26;
+  });
+  const svgW = Math.max(700, LEFT * 2 + 4 * barW);
+  const svgH = TOP + bodyH + 24;
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${svgW}" height="${svgH}" viewBox="0 0 ${svgW} ${svgH}" style="background:#fff">`;
+  // 页眉区：调号左、歌名大字居中、页码右
+  const keyTxt = fw.key + (fw.meter ? " " + fw.meter : "");
+  if (keyTxt.trim()) svg += `<text x="16" y="26" font-size="14" fill="#333">${keyTxt.trim()}</text>`;
+  svg += `<text x="${svgW/2}" y="34" font-size="26" font-weight="bold" text-anchor="middle">${fw.title}</text>`;
+  const sub = [fw.author, fw.composer].filter(Boolean).join(" · ");
+  if (sub) svg += `<text x="${svgW/2}" y="54" font-size="12" text-anchor="middle" fill="#666">${sub}</text>`;
+  if (fw.page) svg += `<text x="${svgW-16}" y="26" font-size="14" text-anchor="end" fill="#333">${fw.page}</text>`;
+  svg += `<line x1="16" y1="70" x2="${svgW-16}" y2="70" stroke="#bbb" stroke-width="1"/>`;
+  // 系统区
+  let y = TOP;
+  fw.systems.forEach((s, si) => {
+    const ry = y;
+    const allXs = [];
+    let x = LEFT, beats = 0;
+    s.notes.forEach((n, i) => {
+      const isBar = i > 0 && beats >= beatsPerBar - 0.001;
+      if (isBar) { svg += `<line x1="${x}" y1="${ry}" x2="${x}" y2="${ry + H*2}" stroke="#333" stroke-width="1"/>`; x += 10; beats = 0; }
+      const nx = x, ny = ry + H;
+      if (n.type === "r") {
+        svg += `<text x="${nx}" y="${ny}" font-size="18" text-anchor="middle" fill="#333">0</text>`;
+      } else {
+        svg += `<text x="${nx}" y="${ny}" font-size="24" font-family="Georgia,serif" text-anchor="middle">${n.pitch}</text>`;
+        for (let k = 0; k < Math.abs(n.oct); k++) {
+          const cy = n.oct > 0 ? ny - 20 - k*6 : ny + 8 + k*6;
+          svg += `<circle cx="${nx}" cy="${cy}" r="2"/>`;
+        }
+        if (n.dot) svg += `<circle cx="${nx + n.dur*17 + 8}" cy="${ny}" r="2.5"/>`;
+        if (n.tie) svg += `<path d="M ${nx+4} ${ny-4} Q ${nx+12} ${ny-14} ${nx+20} ${ny-4}" stroke="#000" fill="none" stroke-width="1.6"/>`;
+      }
+      if (n.dur <= 0.5) svg += `<line x1="${nx-10}" y1="${ny+11}" x2="${nx+10}" y2="${ny+11}" stroke="#000" stroke-width="1.5"/>`;
+      if (n.dur <= 0.25) svg += `<line x1="${nx-10}" y1="${ny+15}" x2="${nx+10}" y2="${ny+15}" stroke="#000" stroke-width="1.5"/>`;
+      if (n.dur >= 2) svg += `<line x1="${nx+6}" y1="${ny}" x2="${nx+n.dur*17-6}" y2="${ny}" stroke="#000" stroke-width="2"/>`;
+      allXs.push(nx);
+      x += n.dur * 17 + 8;
+      beats += n.dur;
+    });
+    svg += `<line x1="${x}" y1="${ry}" x2="${x}" y2="${ry + H*2}" stroke="#333" stroke-width="1.6"/>`;
+    // 歌词：逐字对齐音符
+    s.lyrics.forEach((lr, lri) => {
+      const chars = Array.from(lr);
+      chars.forEach((c, ci) => {
+        if (c === " " || c === "，" || c === "。") return;
+        const nx = allXs[Math.min(ci, allXs.length - 1)] ?? LEFT;
+        svg += `<text x="${nx}" y="${ry + H*2 + 16 + lri*20}" font-size="13" text-anchor="middle">${c}</text>`;
+      });
+    });
+    // 系统标签（右侧小字）
+    svg += `<text x="${svgW-16}" y="${ry + H}" font-size="11" text-anchor="end" fill="#999">系统${si+1}${si===2?"·副歌":(si===3?"·结束句":"")}</text>`;
+    y += 64 + s.lyrics.length * 20 + 26;
+  });
+  svg += `</svg>`;
+  $("#fwScore").innerHTML = svg;
+}
+function currentFwSvg() { return $("#fwScore").querySelector("svg").outerHTML; }
+function setMode(mode) {
+  const free = mode === "free";
+  $("#wrapFree").style.display = free ? "" : "none";
+  $("#wrapFw").style.display = free ? "none" : "";
+  $("#modeFree").classList.toggle("on", free);
+  $("#modeFw").classList.toggle("on", !free);
+  if (free) render(); else renderFw();
+}
+$("#modeFree").addEventListener("click", () => setMode("free"));
+$("#modeFw").addEventListener("click", () => setMode("fw"));
+document.querySelectorAll("#wrapFw .mel-input, #wrapFw .fw-lyr input, #wrapFw input").forEach(el => el.addEventListener("input", renderFw));
+$("#fwClear").addEventListener("click", () => {
+  document.querySelectorAll("#wrapFw .mel-input").forEach(t => t.value = "");
+  document.querySelectorAll("#wrapFw .fw-lyr input").forEach(i => i.value = "");
+  renderFw();
+});
+$("#fwFill").addEventListener("click", () => {
+  $("#fwTitle").value = "须将心门敞开";
+  $("#fwKey").value = "1=F"; $("#fwMeter").value = "4/4"; $("#fwPage").value = "3";
+  $("#fwAuthor").value = ""; $("#fwComposer").value = "";
+  const mels = document.querySelectorAll("#wrapFw .mel-input");
+  mels[0].value = "5 1 1 3# 3 4 3 4 1 5 6 5 3 3 4 1 5 6 5 5";
+  mels[1].value = "4 3 1 3 2 1 2 5 1 1 3# 2 3 4 3 4 1 5 6 5 3";
+  mels[2].value = "3 1 2 2 2 1 1 2 - 2 1 3 | 1 7 1 2 1 1 - 1 5 3 2 3 4 1 3";
+  mels[3].value = "5 1 6 6 4 6 1 5 5# 3 4 1 5 3 4 3 2 1 1 2";
+  const lyr = document.querySelectorAll("#wrapFw .fw-lyr input");
+  lyr[0].value = "有一位慈悲主站在你心门外，他切望能进来";
+  lyr[1].value = "主离天庭降世为要彰显救恩，他被称为耶稣";
+  lyr[2].value = "他是慈爱良善且有丰盛恩惠，能把你心洁净";
+  lyr[3].value = "他且要引导你到那安乐天城，就是上帝所建";
+  lyr[4].value = "为何让他离开？他屡次耐心地用慈声呼召你";
+  lyr[5].value = "救世主和大君，在天父宝座前时常代你恳求";
+  lyr[6].value = "为他安置宝座；他等待要赐福，使你心得安慰";
+  lyr[7].value = "的新耶路撒冷，那里永无黑夜，尘世历程已尽";
+  lyr[8].value = "你须将心门敞开。须将心门敞开，须将心门敞开";
+  lyr[9].value = "你须将心门敞开。";
+  lyr[10].value = "你须将心门敞开。";
+  lyr[11].value = "你须将心门敞开。";
+  lyr[12].value = "让耶稣进来，救你脱离罪恶，你须将心门敞开";
+  renderFw();
+});
+$("#fwPng").addEventListener("click", async () => {
+  const c = await svgToCanvas(currentFwSvg());
+  const a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "简谱-框架排版.png"; a.click();
+});
+$("#fwSvg").addEventListener("click", () => {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([currentFwSvg()], { type: "image/svg+xml" })); a.download = "简谱-框架排版.svg"; a.click();
+});
+$("#fwPdf").addEventListener("click", () => {
+  const win = window.open("", "_blank");
+  win.document.write(`<html><head><title>简谱-框架排版</title><style>@page{size:A4;margin:15mm}body{font-family:'PingFang SC','Microsoft YaHei';margin:0}svg{width:100%;height:auto}</style></head><body>${currentFwSvg()}</body></html>`);
+  win.document.close(); win.focus(); win.print();
+});
 
 </script>
 </body>
