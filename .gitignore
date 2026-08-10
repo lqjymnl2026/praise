@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+.DS_Store
+data/db.json
+data/db.json.tmp
+data/uploads/*
+!data/uploads/.gitkeep
+data/exports/*
+!data/exports/.gitkeep
+tools/ocr_tool
+tools/.cache/
+.ghconfig/
+work/
