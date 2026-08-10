@@ -50,6 +50,7 @@ textarea{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12
   <span>
     <button class="tpl-btn on" id="tplClassic">传统圣诗模版</button>
     <button class="tpl-btn" id="tplDuo">二声部模版</button>
+    <button class="tpl-btn" id="tplSatb">四声部模版</button>
     <a href="/jianpu">📝 文本编辑器</a>
     <a href="/#/collection">返回后台</a>
   </span>
@@ -199,6 +200,72 @@ textarea{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12
       <button class="btn" id="duoPng">PNG</button>
       <button class="btn" id="duoSvg">SVG</button>
       <button class="btn btn-gold" id="duoPdf">🖨 PDF</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ============ 四声部模版（按《庆祝耶稣降生》SATB 版面框架） ============ -->
+<div class="wrap" id="wrapSatb" style="display:none">
+  <div class="left">
+    <div class="card">
+      <h2>📋 页眉区（标题 · 调号速度 · 来源制谱）</h2>
+      <div class="meta">
+        <input id="satbTitle" placeholder="歌名（大字居中）" value="庆祝耶稣降生">
+        <input id="satbSub" placeholder="副题" value="（混声四部无伴奏合唱）">
+        <input id="satbKey" placeholder="调号 1=G" value="1=G">
+        <input id="satbTempo" placeholder="速度/风格 ♩=108 快板庄严" value="♩=108 快板庄严">
+      </div>
+      <div class="meta mt8">
+        <input id="satbSource" placeholder="歌曲来源" value="北美山区歌曲">
+        <input id="satbPage" placeholder="页码" value="第1页">
+        <input id="satbFooter" placeholder="页脚（歌名·总页数·制谱）" value="《庆祝耶稣降生》 总3页，第1页 / 公众号“無聲子粒”制谱（2021年）" style="grid-column:span 2">
+      </div>
+      <div class="tb-row mt8">
+        <button class="btn btn-gold" id="satbFill">✨ 填入示例（庆祝耶稣降生）</button>
+        <button class="btn" id="satbClear">清空</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="fw-head"><h2>🎼 正歌1 · 混声四部</h2><span class="fw-num">女高/女低 + 歌词 + 男高/男低</span></div>
+      <textarea class="duo-voice" placeholder="女高 S：9 1 1 3 2 5 1 8 - - 1 1 8 6 5 2 1 3 - - 3 6 3 5 2"></textarea>
+      <textarea class="duo-voice mt8" placeholder="女低 A：1 6 1 1 3 2 5 1 9 - - 1 3 6 5 2 3 - - 3 1 6 3 5 2"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：齐祝救主降生，诞生在伯利恒，男女老幼都"></div>
+      <textarea class="duo-voice mt8" placeholder="男高 T：6 1 1 5 2 5 1 5 - - 1 1 3 6 5 2 1 8 - - 3 1 6 3 5 2"></textarea>
+      <textarea class="duo-voice mt8" placeholder="男低 B：1 5 1 1 3 2 5 1 6 - - 1 8 6 5 2 1 3 - - 3 6 3 5 2 1"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：欢呼歌颂上主，救主今夜降生。"></div>
+    </div>
+
+    <div class="card">
+      <div class="fw-head"><h2>🎼 正歌2 · 混声四部</h2><span class="fw-num">女高/女低 + 歌词 + 男高/男低</span></div>
+      <textarea class="duo-voice" placeholder="女高 S：4 8 2 1 6 5 1 2 5 1 9 - - 6 1 1 8 2 5 1 0 - - 1 1"></textarea>
+      <textarea class="duo-voice mt8" placeholder="女低 A：4 8 2 1 6 5 1 9 2 5 1 9 - - 3 1 8 9 5 4 5 1 8 9 1 9"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：当歌颂上帝旨意完成。客店马槽里面，"></div>
+      <textarea class="duo-voice mt8" placeholder="男高 T：1 4 8 2 1 6 5 1 2 5 1 0 - - 3 2 1 1 7 8 9 7 1 1 2 8 - 1"></textarea>
+      <textarea class="duo-voice mt8" placeholder="男低 B：1 4 3 2 1 9 5 1 9 1 2 5 - - 1 2 1 8 8 1 2 3 1 9 7 1 6 1"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：圣婴正安眠，牧人贤士都来敬拜。"></div>
+    </div>
+
+    <div class="card">
+      <div class="fw-head"><h2>🎼 副歌 · 混声四部</h2><span class="fw-num">女高/女低 + 歌词 + 男高/男低</span></div>
+      <textarea class="duo-voice" placeholder="女高 S：8 6 5 2 1 8 - - 3 1 6 3 5 2 1 4 8 2 1 6 5 1 6 1 2 5"></textarea>
+      <textarea class="duo-voice mt8" placeholder="女低 A：1 1 6 1 7 1 1 - - 1 1 8 1 1 5 1 4 5 1 1 1 8 4 4 1"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：婴正在安眠，牧人贤士都来敬拜，贵重礼物呈"></div>
+      <textarea class="duo-voice mt8" placeholder="男高 T：1 3 4 3 2 5 1 5 - 1 - 1 1 2 3 7 1 6 7 1 4 3 2 1 1 7 6 5 6 7"></textarea>
+      <textarea class="duo-voice mt8" placeholder="男低 B：1 5 4 5 - 1 1 7 8 5 1 9 8 8 5 1 2 3 4 1 7 1 8 5 4 8 9 5"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：正在安眠，牧人贤士都来敬拜，贵重礼物呈献。"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🖼 四声部模版预览（A4 所见即所得）</h2>
+    <div id="satbScore"></div>
+    <div class="tb-row mt8">
+      <button class="btn btn-green" id="satbPlay">🔊 试听</button>
+      <button class="btn" id="satbPng">PNG</button>
+      <button class="btn" id="satbSvg">SVG</button>
+      <button class="btn btn-gold" id="satbPdf">🖨 PDF</button>
     </div>
   </div>
 </div>
@@ -415,15 +482,14 @@ renderFw();
 
 // ============ 二声部模版（按《主恩更多》版面框架） ============
 function setTpl(name) {
-  const classic = name === "classic";
-  $("#wrapFw").style.display = classic ? "" : "none";
-  $("#wrapDuo").style.display = classic ? "none" : "";
-  $("#tplClassic").classList.toggle("on", classic);
-  $("#tplDuo").classList.toggle("on", !classic);
-  if (classic) renderFw(); else renderDuo();
+  const maps = { classic: "wrapFw", duo: "wrapDuo", satb: "wrapSatb" };
+  ["wrapFw", "wrapDuo", "wrapSatb"].forEach(id => { document.getElementById(id).style.display = id === maps[name] ? "" : "none"; });
+  ["tplClassic", "tplDuo", "tplSatb"].forEach(id => { document.getElementById(id).classList.toggle("on", id === ("tpl" + name[0].toUpperCase() + name.slice(1))); });
+  if (name === "classic") renderFw(); else if (name === "duo") renderDuo(); else renderSatb();
 }
 $("#tplClassic").addEventListener("click", () => setTpl("classic"));
 $("#tplDuo").addEventListener("click", () => setTpl("duo"));
+$("#tplSatb").addEventListener("click", () => setTpl("satb"));
 
 function duoSystems() {
   const cards = Array.from(document.querySelectorAll("#wrapDuo .left > .card")).slice(1);
@@ -563,6 +629,145 @@ $("#duoSvg").addEventListener("click", () => {
 $("#duoPdf").addEventListener("click", () => {
   const win = window.open("", "_blank");
   win.document.write(`<html><head><title>二声部模版</title><style>@page{size:A4;margin:15mm}body{font-family:'PingFang SC','Microsoft YaHei';margin:0}svg{width:100%;height:auto}</style></head><body>${currentDuoSvg()}</body></html>`);
+  win.document.close(); win.focus(); win.print();
+});
+
+
+// ============ 四声部模版（按《庆祝耶稣降生》SATB 版面框架） ============
+function satbSystems() {
+  const cards = Array.from(document.querySelectorAll("#wrapSatb .left > .card")).slice(1);
+  return cards.map(c => ({
+    label: (c.querySelector(".fw-head h2")?.textContent || "").trim(),
+    mels: Array.from(c.querySelectorAll("textarea.duo-voice")).map(t => t.value),
+    lyrics: Array.from(c.querySelectorAll(".duo-lyr input")).map(i => i.value.trim()).filter(Boolean)
+  }));
+}
+function renderSatb() {
+  const A4W = 794, A4H = 1123;
+  const systems = satbSystems();
+  const beatsPerBar = 4, W = 27, maxBars = 6, barW = beatsPerBar * W + 6;
+  const contentW = maxBars * barW;
+  const LEFT = Math.max(56, Math.round((A4W - contentW) / 2));
+  const headerH = 128, bottomPad = 62;
+  let natural = 0;
+  systems.forEach(s => { natural += 34 + s.mels.length * 40 + s.lyrics.length * 24 + 18; });
+  const availH = A4H - headerH - bottomPad;
+  const scale = Math.min(1.15, Math.max(0.7, availH / natural));
+  const gap = Math.max(12, (availH - natural * scale) / (systems.length + 1));
+  const noteFont = Math.round(19 * scale), lyrFont = Math.round(12 * scale);
+
+  const title = $("#satbTitle").value.trim() || "未命名";
+  const sub = $("#satbSub").value.trim();
+  const keyTxt = [$("#satbKey").value.trim(), $("#satbTempo").value.trim()].filter(Boolean).join(" ");
+  const source = $("#satbSource").value.trim();
+  const page = $("#satbPage").value.trim(), footer = $("#satbFooter").value.trim();
+
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${A4W}" height="${A4H}" viewBox="0 0 ${A4W} ${A4H}" style="background:#fff">`;
+  if (keyTxt) svg += `<text x="24" y="32" font-size="15" fill="#333" font-weight="600">${keyTxt}</text>`;
+  if (source) svg += `<text x="${A4W-24}" y="32" font-size="13" text-anchor="end" fill="#555">${source}</text>`;
+  if (page) svg += `<text x="${A4W-24}" y="60" font-size="13" text-anchor="end" fill="#333">${page}</text>`;
+  svg += `<text x="${A4W/2}" y="58" font-size="30" font-weight="bold" text-anchor="middle">${title}</text>`;
+  if (sub) svg += `<text x="${A4W/2}" y="82" font-size="14" text-anchor="middle" fill="#666">${sub}</text>`;
+  svg += `<line x1="24" y1="100" x2="${A4W-24}" y2="100" stroke="#9aa5b5" stroke-width="1.2"/>`;
+
+  const voiceLabels = ["女高 S", "女低 A", "男高 T", "男低 B"];
+  const voiceColors = ["#b8890a", "#7a4fb8", "#0e8a8a", "#9c5a28"];
+  let y = headerH + gap;
+  systems.forEach((s, si) => {
+    const blockH = (34 + s.mels.length * 40 + s.lyrics.length * 24 + 18) * scale;
+    const ry = y;
+    svg += `<rect x="20" y="${ry}" width="${A4W-40}" height="${blockH}" rx="8" fill="${si%2 ? "#f6f8fc" : "#fbf6ec"}" stroke="#d9e1ec" stroke-width="1.2"/>`;
+    svg += `<text x="30" y="${ry + 15*scale}" font-size="${Math.round(11.5*scale)}" fill="#5b6b85" font-weight="700">${s.label}</text>`;
+    const melX0 = LEFT, melX1 = LEFT + contentW;
+    const allXs = [];
+    s.mels.forEach((mel, vi) => {
+      const melY = ry + 30 * scale + vi * 40 * scale;
+      const col = voiceColors[vi] || "#888";
+      svg += `<line x1="${melX0}" y1="${melY}" x2="${melX1}" y2="${melY}" stroke="${col}" stroke-width="1" opacity="0.55"/>`;
+      svg += `<text x="${melX0 - 8}" y="${melY + 7}" font-size="${Math.round(10.5*scale)}" text-anchor="end" fill="${col}" font-weight="600">${voiceLabels[vi] || ""}</text>`;
+      for (let b = 0; b <= maxBars; b++) {
+        const bx = melX0 + b * barW;
+        svg += `<line x1="${bx}" y1="${melY-6}" x2="${bx}" y2="${melY+6}" stroke="#c3cad6" stroke-width="1"/>`;
+      }
+      const notes = parseMelody(mel);
+      let x = melX0, beats = 0, barIdx = 0;
+      notes.forEach((n, i) => {
+        if (i > 0 && beats >= beatsPerBar - 0.001) { barIdx++; x = melX0 + Math.min(barIdx, maxBars) * barW; beats = 0; }
+        const nx = x, ny = melY + 7;
+        if (n.type === "r") {
+          svg += `<text x="${nx}" y="${ny}" font-size="${Math.round(15*scale)}" text-anchor="middle" fill="#333">0</text>`;
+        } else {
+          svg += `<text x="${nx}" y="${ny}" font-size="${noteFont}" font-family="Georgia,serif" text-anchor="middle">${n.pitch}</text>`;
+          for (let k = 0; k < Math.abs(n.oct); k++) {
+            const cy = n.oct > 0 ? ny - 17 - k*6 : ny + 7 + k*6;
+            svg += `<circle cx="${nx}" cy="${cy}" r="1.8"/>`;
+          }
+          if (n.dot) svg += `<circle cx="${nx + n.dur*W + 5}" cy="${ny}" r="2.3"/>`;
+          if (n.tie) svg += `<path d="M ${nx+4} ${ny-4} Q ${nx+12} ${ny-12} ${nx+19} ${ny-4}" stroke="#000" fill="none" stroke-width="1.4"/>`;
+          if (n.dur <= 0.5) svg += `<line x1="${nx-8}" y1="${ny+9}" x2="${nx+8}" y2="${ny+9}" stroke="#000" stroke-width="1.3"/>`;
+          if (n.dur <= 0.25) svg += `<line x1="${nx-8}" y1="${ny+13}" x2="${nx+8}" y2="${ny+13}" stroke="#000" stroke-width="1.3"/>`;
+          if (n.dur >= 2) svg += `<line x1="${nx+5}" y1="${ny}" x2="${nx+n.dur*W-5}" y2="${ny}" stroke="#000" stroke-width="1.8"/>`;
+        }
+        if (vi === 0) allXs.push(nx);
+        x += n.dur * W + 6;
+        beats += n.dur;
+      });
+    });
+    const lyrY0 = ry + 30 * scale + s.mels.length * 40 * scale;
+    s.lyrics.forEach((lr, lri) => {
+      const ly = lyrY0 + lri * 24 * scale + 4;
+      const chars = Array.from(lr);
+      chars.forEach((c, ci) => {
+        if (c === " " || c === "，" || c === "。") return;
+        const nx = allXs[Math.min(ci, allXs.length - 1)] ?? melX0;
+        svg += `<text x="${nx}" y="${ly}" font-size="${lyrFont}" text-anchor="middle">${c}</text>`;
+      });
+    });
+    y += blockH + gap;
+  });
+  if (footer) svg += `<text x="${A4W/2}" y="${A4H-26}" font-size="12" text-anchor="middle" fill="#666">${footer}</text>`;
+  svg += `</svg>`;
+  $("#satbScore").innerHTML = svg;
+}
+function currentSatbSvg() { return $("#satbScore").querySelector("svg").outerHTML; }
+document.querySelectorAll("#wrapSatb textarea, #wrapSatb input").forEach(el => el.addEventListener("input", renderSatb));
+$("#satbClear").addEventListener("click", () => {
+  document.querySelectorAll("#wrapSatb textarea.duo-voice").forEach(t => t.value = "");
+  document.querySelectorAll("#wrapSatb .duo-lyr input").forEach(i => i.value = "");
+  renderSatb();
+});
+$("#satbFill").addEventListener("click", () => {
+  document.querySelectorAll("#wrapSatb textarea.duo-voice").forEach(t => { t.value = t.placeholder; });
+  document.querySelectorAll("#wrapSatb .duo-lyr input").forEach(i => { i.value = i.placeholder; });
+  renderSatb();
+});
+function satbPlay() {
+  const f = { 1: 523.25, 2: 587.33, 3: 659.25, 4: 698.46, 5: 783.99, 6: 880, 7: 987.77 };
+  let ac = window.__satbAc;
+  if (!ac) { ac = new (window.AudioContext || window.webkitAudioContext)(); window.__satbAc = ac; }
+  if (ac.state === "suspended") ac.resume();
+  let t = ac.currentTime + 0.1;
+  satbSystems().forEach(s => s.mels.forEach(mel => parseMelody(mel).forEach(n => {
+    if (n.type === "r") { t += n.dur * 0.4; return; }
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.frequency.value = (f[n.pitch] || 523.25) * Math.pow(2, n.oct);
+    o.connect(g); g.connect(ac.destination);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.12, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + n.dur * 0.4);
+    o.start(t); o.stop(t + n.dur * 0.4 + 0.05);
+    t += n.dur * 0.4;
+  })));
+}
+$("#satbPlay").addEventListener("click", satbPlay);
+$("#satbPng").addEventListener("click", async () => {
+  const c = await svgToCanvas(currentSatbSvg());
+  const a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "四声部模版.png"; a.click();
+});
+$("#satbSvg").addEventListener("click", () => {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([currentSatbSvg()], { type: "image/svg+xml" })); a.download = "四声部模版.svg"; a.click();
+});
+$("#satbPdf").addEventListener("click", () => {
+  const win = window.open("", "_blank");
+  win.document.write(`<html><head><title>四声部模版</title><style>@page{size:A4;margin:15mm}body{font-family:'PingFang SC','Microsoft YaHei';margin:0}svg{width:100%;height:auto}</style></head><body>${currentSatbSvg()}</body></html>`);
   win.document.close(); win.focus(); win.print();
 });
 
