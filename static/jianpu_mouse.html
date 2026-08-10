@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>简谱框架打谱 · 赞美诗中心</title>
+<title>简谱传统圣诗打谱 · 赞美诗中心</title>
 <style>
 :root{--ink:#1c2740;--ink2:#5b6b85;--primary:#4b6eaf;--gold:#c9a227;--line:#e3e8f0;--bg:#f2f5fa}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -39,7 +39,7 @@ textarea{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12
 </head>
 <body>
 <div class="top">
-  <h1>🎼 简谱框架打谱（按版面固定排版）</h1>
+  <h1>🎼 简谱传统圣诗打谱（传统圣诗模版）</h1>
   <span>
     <a href="/jianpu">📝 文本编辑器</a>
     <a href="/#/collection">返回后台</a>
@@ -107,14 +107,14 @@ textarea{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12
   </div>
 
   <div class="card">
-    <h2>🖼 框架谱面预览（所见即所得）</h2>
+    <h2>🖼 传统圣诗模版预览（A4 所见即所得）</h2>
     <div id="fwScore"></div>
     <div class="tb-row mt8">
       <button class="btn btn-green" id="fwPlay">🔊 试听</button>
       <button class="btn" id="fwPng">PNG</button>
       <button class="btn" id="fwSvg">SVG</button>
       <button class="btn btn-gold" id="fwPdf">🖨 PDF</button>
-      <button class="btn" id="fwClear">清空框架</button>
+      <button class="btn" id="fwClear">清空模版</button>
     </div>
   </div>
 </div>
@@ -296,18 +296,18 @@ $("#fwFill").addEventListener("click", () => {
 });
 $("#fwPng").addEventListener("click", async () => {
   const c = await svgToCanvas(currentFwSvg());
-  const a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "简谱-框架排版.png"; a.click();
+  const a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "传统圣诗模版.png"; a.click();
 });
 $("#fwSvg").addEventListener("click", () => {
-  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([currentFwSvg()], { type: "image/svg+xml" })); a.download = "简谱-框架排版.svg"; a.click();
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([currentFwSvg()], { type: "image/svg+xml" })); a.download = "传统圣诗模版.svg"; a.click();
 });
 $("#fwPdf").addEventListener("click", () => {
   const win = window.open("", "_blank");
-  win.document.write(`<html><head><title>简谱-框架排版</title><style>@page{size:A4;margin:15mm}body{font-family:'PingFang SC','Microsoft YaHei';margin:0}svg{width:100%;height:auto}</style></head><body>${currentFwSvg()}</body></html>`);
+  win.document.write(`<html><head><title>传统圣诗模版</title><style>@page{size:A4;margin:15mm}body{font-family:'PingFang SC','Microsoft YaHei';margin:0}svg{width:100%;height:auto}</style></head><body>${currentFwSvg()}</body></html>`);
   win.document.close(); win.focus(); win.print();
 });
 
-// 框架谱面试听（按系统顺序播放）
+// 传统圣诗模版试听（按系统顺序播放）
 function fwPlay() {
   const fw = fwState();
   const f = { 1: 523.25, 2: 587.33, 3: 659.25, 4: 698.46, 5: 783.99, 6: 880, 7: 987.77 };
