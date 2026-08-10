@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赞美诗智能整理中心 · 在线版</title>
+<meta name="description" content="手机端采集 + 后台端管理：拍照OCR识别、编定圣诗分类、自动去重、一键导出">
+<style>
+:root{--ink:#1c2740;--ink2:#5b6b85;--primary:#4b6eaf;--gold:#c9a227;--line:#e3e8f0;--bg:#f2f5fa}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+.hero{background:linear-gradient(135deg,#1e2942,#3a5791);color:#fff;padding:44px 20px 34px;text-align:center}
+.hero .logo{font-size:46px}
+.hero h1{font-size:26px;margin-top:8px;letter-spacing:1px}
+.hero p{opacity:.85;margin-top:8px;font-size:14px}
+.wrap{max-width:960px;margin:0 auto;padding:22px 16px 60px}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;margin-top:16px}
+.card h2{font-size:18px;margin-bottom:14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:680px){.grid{grid-template-columns:1fr}}
+.entry{text-align:center;border:1px solid var(--line);border-radius:14px;padding:18px}
+.entry img{width:200px;height:200px;border-radius:10px}
+.entry .t{font-weight:700;margin-top:10px}
+.entry .tag{display:inline-block;background:#faf3dd;color:#a8841b;border-radius:12px;padding:2px 10px;font-size:12px;margin-top:6px}
+.entry .u{font-size:12px;color:var(--ink2);word-break:break-all;margin-top:8px}
+.entry a.btn{display:inline-block;margin-top:10px;background:var(--primary);color:#fff;text-decoration:none;border-radius:10px;padding:9px 20px;font-size:14px}
+.feats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media(max-width:680px){.feats{grid-template-columns:repeat(2,1fr)}}
+.feat{background:#f7f9ff;border:1px solid var(--line);border-radius:12px;padding:14px}
+.feat .i{font-size:22px}
+.feat b{display:block;margin-top:4px;font-size:14px}
+.feat span{font-size:12px;color:var(--ink2)}
+.note{color:var(--ink2);font-size:12px;margin-top:14px}
+a{color:var(--primary)}
+.footer{text-align:center;color:var(--ink2);font-size:12px;padding:20px}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="logo">🎵</div>
+  <h1>赞美诗智能整理中心</h1>
+  <p>手机端采集 · 后台端管理 · 编定圣诗分类</p>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <h2>📱 立即使用（扫码打开）</h2>
+    <div class="grid">
+      <div class="entry">
+        <img src="qr/qr-mobile.png" alt="手机采集端">
+        <div class="t">📷 手机采集端</div>
+        <div class="tag">拍照识别 · 相册导入 · 快速录入</div>
+        <div class="u">https://fits-extraction-weekends-railroad.trycloudflare.com/mobile</div>
+        <a class="btn" href="https://fits-extraction-weekends-railroad.trycloudflare.com/mobile">打开采集端</a>
+      </div>
+      <div class="entry">
+        <img src="qr/qr-admin.png" alt="后台管理端">
+        <div class="t">🖥️ 后台管理端</div>
+        <div class="tag">审核 · 分类 · 筛选 · 导出</div>
+        <div class="u">https://fits-extraction-weekends-railroad.trycloudflare.com/</div>
+        <a class="btn" href="https://fits-extraction-weekends-railroad.trycloudflare.com/">打开管理端</a>
+      </div>
+    </div>
+    <div class="note">⚠️ 当前公网地址为临时隧道，由本机提供在线服务；地址如有变化会在本页更新。同一 WiFi 下也可直接使用局域网地址（详见使用说明）。</div>
+  </div>
+
+  <div class="card">
+    <h2>✨ 核心功能</h2>
+    <div class="feats">
+      <div class="feat"><div class="i">📷</div><b>拍照 OCR 识别</b><span>拍书页自动提取歌名与歌词</span></div>
+      <div class="feat"><div class="i">🗂️</div><b>批量导入</b><span>Excel / CSV / PDF / Word / 图片 / 音频</span></div>
+      <div class="feat"><div class="i">📚</div><b>编定圣诗分类</b><span>5 大类 + 35 细目自动归类</span></div>
+      <div class="feat"><div class="i">🔄</div><b>自动去重</b><span>歌名+歌词相似度，合并/保留</span></div>
+      <div class="feat"><div class="i">✅</div><b>筛选审核</b><span>评分、评审、候选→初选→终选→出版</span></div>
+      <div class="feat"><div class="i">📤</div><b>一键导出</b><span>Excel / Word / PDF / CSV 编选报告</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📖 使用说明</h2>
+    <p style="font-size:14px">完整功能对照与常见问题：<a href="使用说明.md">《第二套-完整功能使用说明》</a></p>
+    <div class="note">本系统为本地部署 + 公网隧道模式，数据保存在你本机的 Mac 上（hymn-center-2/data），不会上传到本网页。GitHub 代码仓库：<a href="https://github.com/lqjymnl2026/praise">lqjymnl2026/praise</a></div>
+  </div>
+</div>
+
+<div class="footer">赞美诗智能整理中心 · 在线版 · 数据仅供编辑工作使用，正式出版前请核实版权</div>
+</body>
+</html>
