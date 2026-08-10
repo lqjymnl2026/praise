@@ -65,6 +65,11 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 
 <div class="app">
   <div class="card">
+    <h2>👤 上传人</h2>
+    <div class="fg"><label>上传人姓名 *（必填，用于对接）</label><input id="uploader" placeholder="例：张三"></div>
+  </div>
+
+  <div class="card">
     <h2>📷 拍照 / 相册 收集</h2>
     <div class="capture">
       <label class="cap primary" for="camInput"><span class="i">📷</span>拍照识别</label>
@@ -149,9 +154,11 @@ async function handlePhoto(file) {
   } catch (e) { toast("识别失败：" + e.message, 4000); }
 }
 async function handleImport(files) {
+  const up = getUploader(); if (up === null) return;
   toast("导入中…", 60000);
   try {
     const fd = new FormData();
+    fd.append("uploader", up);
     Array.from(files).forEach((f) => fd.append("files", f, f.name));
     const d = await api("/api/import", { method: "POST", body: fd });
     const s = d.summary;
@@ -165,7 +172,13 @@ async function handleImport(files) {
 $("#camInput").addEventListener("change", () => { const f = $("#camInput").files[0]; $("#camInput").value = ""; if (f) handlePhoto(f); });
 $("#galInput").addEventListener("change", () => { const fs = $("#galInput").files; $("#galInput").value = ""; if (fs.length) handleImport(fs); });
 $("#docInput").addEventListener("change", () => { const fs = $("#docInput").files; $("#docInput").value = ""; if (fs.length) handleImport(fs); });
+function getUploader() {
+  const u = $("#uploader").value.trim();
+  if (!u) { toast("请先填写上传人姓名（必填）", 3200); $("#uploader").focus(); return null; }
+  return u;
+}
 $("#saveBtn").addEventListener("click", async () => {
+  const up = getUploader(); if (up === null) return;
   const title = $("#title").value.trim();
   if (!title) { toast("请填写歌名", 2600); $("#title").focus(); return; }
   const btn = $("#saveBtn"); btn.disabled = true; btn.textContent = "保存中…";
@@ -176,6 +189,7 @@ $("#saveBtn").addEventListener("click", async () => {
       source: $("#source").value.trim(), comment: $("#comment").value.trim(),
       themes: [], scenarios: [], musicTypes: [], status: "pending",
     };
+    body.uploader = up;
     if (pendingPhoto) body.attachment = pendingPhoto;
     const d = await api("/api/songs", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
     const cat = d.song.category ? ` · 分类：${d.song.category}·${d.song.subcategory || ""}` : "";
