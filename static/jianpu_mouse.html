@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>简谱快速打谱 · 赞美诗中心</title>
+<title>简谱框架打谱 · 赞美诗中心</title>
 <style>
 :root{--ink:#1c2740;--ink2:#5b6b85;--primary:#4b6eaf;--gold:#c9a227;--line:#e3e8f0;--bg:#f2f5fa}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -17,25 +17,16 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 .card{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px}
 .card h2{font-size:13px;margin-bottom:8px;color:var(--ink2);font-weight:600}
 .btn{border:1px solid var(--line);background:#fff;border-radius:7px;padding:5px 9px;font-size:12px;cursor:pointer}
-.btn.on{background:var(--primary);color:#fff;border-color:var(--primary)}
 .btn-gold{background:var(--gold);color:#fff;border-color:var(--gold)}
 .btn-green{background:#2e9e6b;color:#fff;border-color:#2e9e6b}
 .btn:hover{opacity:.9}
-.tb{display:flex;flex-direction:column;gap:8px}
 .tb-row{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
 .tb-row .lb{font-size:11px;color:var(--ink2);margin-right:2px;min-width:34px}
-textarea{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px;font-family:ui-monospace,Menlo,monospace;min-height:60px;width:100%;outline:none;resize:vertical}
 .meta{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .meta input{border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:12px;outline:none;width:100%}
-#score{overflow:auto;max-height:calc(100vh - 130px);min-height:70vh;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
-#score svg{max-width:100%}
 .hint{font-size:11px;color:var(--ink2);line-height:1.8}
 .hint b{color:var(--primary)}
-details.card summary{cursor:pointer;font-size:12px;color:var(--ink2);font-weight:600}
 .mt8{margin-top:8px}
-
-.mode-btn{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer}
-.mode-btn.on{background:#ffd970;color:#1e2942;border-color:#ffd970;font-weight:600}
 .fw-sys .mel-input{font-size:14px;min-height:44px;font-family:ui-monospace,Menlo,monospace}
 .fw-lyr{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
 .fw-lyr input{border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:12px;outline:none;width:100%}
@@ -43,93 +34,19 @@ details.card summary{cursor:pointer;font-size:12px;color:var(--ink2);font-weight
 .fw-head .fw-num{font-size:12px;color:var(--ink2);font-weight:600}
 #fwScore{overflow:auto;max-height:calc(100vh - 130px);min-height:70vh;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
 #fwScore svg{max-width:100%}
+textarea{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px;font-family:ui-monospace,Menlo,monospace;min-height:60px;width:100%;outline:none;resize:vertical}
 </style>
 </head>
 <body>
 <div class="top">
-  <h1>🎼 简谱快速打谱（鼠标 + 键盘）</h1>
+  <h1>🎼 简谱框架打谱（按版面固定排版）</h1>
   <span>
-    <button class="mode-btn on" id="modeFree">✏ 自由编辑</button>
-    <button class="mode-btn" id="modeFw">📐 框架编辑</button>
     <a href="/jianpu">📝 文本编辑器</a>
     <a href="/#/collection">返回后台</a>
   </span>
 </div>
-<div class="wrap" id="wrapFree">
-  <div class="left">
-    <div class="card">
-      <h2>📋 曲目信息</h2>
-      <div class="meta">
-        <input id="mTitle" placeholder="歌名" value="奇异恩典">
-        <input id="mAuthor" placeholder="作词" value="John Newton">
-        <input id="mComposer" placeholder="作曲" value="NEW BRITAIN">
-        <input id="mKey" placeholder="1=F 4/4" value="1=F 4/4">
-      </div>
-    </div>
-    <div class="card">
-      <h2>⌨ 时值（选中音符后按键 = 批量改）</h2>
-      <div class="tb">
-        <div class="tb-row"><span class="lb">时值</span>
-          <button class="btn on" data-dur="1" title="E 四分">E 四分</button>
-          <button class="btn" data-dur="0.5" title="R 八分">R 八分</button>
-          <button class="btn" data-dur="0.25" title="T 十六">T 十六</button>
-          <button class="btn" data-dur="2" title="W 二分">W 二分</button>
-          <button class="btn" data-dur="4" title="Q 全音符">Q 全</button>
-          <button class="btn" data-dur="0.125" title="Y 三十二">Y 三十二</button>
-        </div>
-        <div class="tb-row"><span class="lb">记号</span>
-          <button class="btn" id="tbDot">空格 附点</button>
-          <button class="btn" id="tbTie">T 连音</button>
-          <button class="btn" id="tbRest">R 休止</button>
-          <button class="btn" id="tbOctU">滚轮↑ 高八</button>
-          <button class="btn" id="tbOctD">滚轮↓ 低八</button>
-        </div>
-        <div class="tb-row"><span class="lb">编辑</span>
-          <button class="btn" id="undo">Z 撤销</button>
-          <button class="btn" id="clear">清空</button>
-          <button class="btn" id="play">P 试听</button>
-          <button class="btn" id="dlPng">PNG</button>
-          <button class="btn" id="dlSvg">SVG</button>
-          <button class="btn" id="dlPdf">🖨 PDF</button>
-        </div>
-      </div>
-      <div class="hint mt8">点选/Shift加选音符 → 按 Q/W/E/R/T/Y 改时值 · 空格 附点 · 滚轮 八度 · 数字1-7 输音高</div>
-    </div>
-    <div class="card">
-      <h2>🎵 节奏型（⌥+1~8 或点按钮）</h2>
-      <div class="tb-row">
-        <button class="btn" data-ry="0">四分</button>
-        <button class="btn" data-ry="1">八分</button>
-        <button class="btn" data-ry="2">前八后十六</button>
-        <button class="btn" data-ry="3">前十六后八</button>
-        <button class="btn" data-ry="4">附点</button>
-        <button class="btn" data-ry="5">三连音</button>
-        <button class="btn" data-ry="6">小切分</button>
-        <button class="btn" data-ry="7">二+四</button>
-      </div>
-    </div>
-    <div class="card">
-      <h2>🎤 歌词（每行一段，逐字对齐）</h2>
-      <textarea id="lyrics">奇异恩典，何等甘甜
-我罪已得赦免；</textarea>
-    </div>
-    <details class="card">
-      <summary>📄 简谱文本（导出/导入）</summary>
-      <div class="mt8">
-        <textarea id="txt" readonly></textarea>
-        <button class="btn mt8" id="fromTxt">⬇ 从文本导入</button>
-      </div>
-    </details>
-  </div>
-  <div class="card">
-    <h2>🖼 谱面预览（滚轮 = 八度）</h2>
-    <div id="score"></div>
-  </div>
-</div>
-
-
 <!-- ============ 框架编辑区（按版面框架分析：页眉 + 系统1-4） ============ -->
-<div class="wrap" id="wrapFw" style="display:none">
+<div class="wrap" id="wrapFw">
   <div class="left">
     <div class="card">
       <h2>📋 页眉区（歌名大字 · 调号拍号 · 页码）</h2>
@@ -193,298 +110,16 @@ details.card summary{cursor:pointer;font-size:12px;color:var(--ink2);font-weight
     <h2>🖼 框架谱面预览（所见即所得）</h2>
     <div id="fwScore"></div>
     <div class="tb-row mt8">
+      <button class="btn btn-green" id="fwPlay">🔊 试听</button>
       <button class="btn" id="fwPng">PNG</button>
       <button class="btn" id="fwSvg">SVG</button>
-      <button class="btn btn-green" id="fwPdf">🖨 PDF</button>
+      <button class="btn btn-gold" id="fwPdf">🖨 PDF</button>
       <button class="btn" id="fwClear">清空框架</button>
     </div>
   </div>
 </div>
-
 <script>
-
 const $ = (s) => document.querySelector(s);
-const DUR_LABEL = { 4: "---", 2: "-", 1: "", 0.5: "_", 0.25: "__" };
-const state = { dur: 1, dot: false, tie: false, rest: false, oct: 0, notes: [], sel: -1, meter: [4, 4], pos: 0, lastPitch: 5, selSet: new Set() };
-
-function addNote(pitch, dur, dot, oct, tie, type) {
-  if (type !== "r") state.lastPitch = pitch;
-  const n = { pitch, dur, dot, oct, tie, type: type || "n" };
-  state.notes.splice(Math.min(state.pos, state.notes.length), 0, n);
-  state.pos = Math.min(state.pos + 1, state.notes.length);
-  state.sel = -1;
-  state.rest = false;
-  state.tie = false;
-  render();
-}
-function insertAt(i, n) { state.notes.splice(i, 0, n); state.sel = -1; render(); }
-
-function tokenText(n) {
-  if (n.type === "r") return "0";
-  let t = String(n.pitch);
-  for (let i = 0; i < Math.abs(n.oct); i++) t += n.oct > 0 ? "'" : ",";
-  t += DUR_LABEL[n.dur] || "";
-  if (n.dot) t += ".";
-  if (n.tie) t += "~";
-  return t;
-}
-function toText() {
-  const parts = [];
-  let beats = 0;
-  state.notes.forEach((n, i) => {
-    const isBar = i > 0 && beats >= state.meter[1];
-    if (isBar) { parts.push("|"); beats = 0; }
-    parts.push(tokenText(n));
-    beats += n.dur;
-    if (beats >= state.meter[1]) beats = state.meter[1];
-  });
-  return (state.meter[0] ? `${state.meter[0]}=${$("#mKey").value.match(/[A-Ga-g][#b♯♭]?/)?.[0] || "C"} ${state.meter[0]}/${state.meter[1]} ` : "") + "\n" + parts.join(" ");
-}
-
-function fromText(txt) {
-  state.notes = [];
-  const tokens = txt.split(/\s+/).filter(Boolean);
-  for (const t of tokens) {
-    if (t.startsWith("|") || t.startsWith(":")) continue;
-    if (t.startsWith("0")) { state.notes.push({ pitch: 0, dur: 1, dot: false, oct: 0, tie: false, type: "r" }); continue; }
-    const m = t.match(/^([1-7])(['',]*)(_*|-*)(\.?)(~?)$/);
-    if (!m) continue;
-    const oct = (m[2].match(/'/g) || []).length - (m[2].match(/,/g) || []).length;
-    let dur = 1;
-    if (m[3] === "__") dur = 0.25; else if (m[3] === "_") dur = 0.5;
-    else if (m[3]) dur = m[3].length + 1;
-    if (dur > 4) dur = 4;
-    state.notes.push({ pitch: Number(m[1]), dur, dot: !!m[4], oct, tie: !!m[5], type: "n" });
-  }
-  render();
-}
-
-function layout() {
-  const beatsPerBar = state.meter[1] || 4;
-  const W = 34, H = 40, TOP = 70, LEFT = 50, barW = beatsPerBar * W + 12, maxBars = 4;
-  const rows = [];
-  let row = { notes: [], beats: 0, bars: 0 };
-  let lastWasBar = false;
-  state.notes.forEach((n) => {
-    if (row.beats + n.dur > beatsPerBar + 0.001 && row.beats > 0 && !lastWasBar) {
-      row.bars++;
-      rows.push(row);
-      row = { notes: [], beats: 0, bars: 0 };
-    }
-    row.notes.push(n);
-    row.beats += n.dur;
-    lastWasBar = false;
-    if (row.beats >= beatsPerBar - 0.001) {
-      row.bars++;
-      rows.push(row);
-      row = { notes: [], beats: 0, bars: 0 };
-      lastWasBar = true;
-    }
-  });
-  if (row.notes.length) rows.push(row);
-  const lyricRows = $("#lyrics").value.split("\n").map(l => l.trim()).filter(l => l);
-  const lineH = H * 2.4 + (lyricRows.length ? lyricRows.length * 18 + 8 : 0);
-  const svgH = rows.length * lineH + TOP + 20;
-  const svgW = LEFT * 2 + maxBars * barW + 20;
-  return { rows, lyricRows, lineH, svgH, svgW, W, H, TOP, LEFT, barW, beatsPerBar };
-}
-
-function render() {
-  const L = layout();
-  let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${L.svgW}" height="${L.svgH}" viewBox="0 0 ${L.svgW} ${L.svgH}" style="background:#fff">`;
-  const title = $("#mTitle").value.trim() || "未命名";
-  svg += `<text x="${L.svgW/2}" y="24" font-size="20" font-weight="bold" text-anchor="middle">${title}</text>`;
-  const sub = [$("#mAuthor").value.trim(), $("#mComposer").value.trim()].filter(Boolean).join(" · ");
-  if (sub) svg += `<text x="${L.svgW/2}" y="42" font-size="12" text-anchor="middle" fill="#555">${sub}</text>`;
-  svg += `<text x="20" y="20" font-size="12" fill="#777">${$("#mKey").value.trim()}</text>`;
-
-  let gi = 0;
-  const allNoteXs = [];
-  const PADX = (x) => x + 20;
-  const lyricRows = L.lyricRows;
-  for (let ri = 0; ri < L.rows.length; ri++) {
-    const row = L.rows[ri];
-    const ry = L.TOP + ri * L.lineH;
-    let x = L.LEFT;
-    let beats = 0;
-    for (const [i, n] of row.notes.entries()) {
-      const isBar = i > 0 && beats >= L.beatsPerBar - 0.001;
-      if (isBar) {
-        svg += `<line x1="${x}" y1="${ry}" x2="${x}" y2="${ry + L.H * 2}" stroke="#333" stroke-width="1"/>`;
-        x += 10; beats = 0;
-      }
-      const nx = x, ny = ry + L.H;
-      if (n.type === "r") {
-        svg += `<text x="${nx}" y="${ny}" font-size="18" text-anchor="middle" fill="${state.selSet.has(gi) ? "#c9a227" : "#333"}">0</text>`;
-      } else {
-        svg += `<text x="${nx}" y="${ny}" font-size="24" font-family="Georgia,serif" text-anchor="middle" data-i="${gi}" fill="${state.selSet.has(gi) ? "#c9a227" : "#000"}">${n.pitch}</text>`;
-        for (let k = 0; k < Math.abs(n.oct); k++) {
-          const cy = n.oct > 0 ? ny - 20 - k * 6 : ny + 8 + k * 6;
-          svg += `<circle cx="${nx}" cy="${cy}" r="2"/>`;
-        }
-        if (n.dot) svg += `<circle cx="${nx + n.dur * 17 + 8}" cy="${ny}" r="2.5"/>`;
-        if (n.tie) svg += `<path d="M ${nx+4} ${ny-4} Q ${nx+12} ${ny-14} ${nx+20} ${ny-4}" stroke="#000" fill="none" stroke-width="1.6"/>`;
-      }
-      // 时值线
-      if (n.dur <= 0.5) svg += `<line x1="${nx - 10}" y1="${ny + 11}" x2="${nx + 10}" y2="${ny + 11}" stroke="#000" stroke-width="1.5"/>`;
-      if (n.dur <= 0.25) svg += `<line x1="${nx - 10}" y1="${ny + 15}" x2="${nx + 10}" y2="${ny + 15}" stroke="#000" stroke-width="1.5"/>`;
-      if (n.dur >= 2) svg += `<line x1="${nx + 6}" y1="${ny}" x2="${nx + n.dur * 17 - 6}" y2="${ny}" stroke="#000" stroke-width="2"/>`;
-      allNoteXs.push(nx);
-      x += n.dur * 17 + 8;
-      beats += n.dur;
-      gi++;
-    }
-    // 行尾小节线
-    svg += `<line x1="${x}" y1="${ry}" x2="${x}" y2="${ry + L.H * 2}" stroke="#333" stroke-width="1.6"/>`;
-    // 歌词：每段从第1个音符开始独立对齐（多段同旋律）
-    lyricRows.forEach((lr, lri) => {
-      const chars = Array.from(lr);
-      chars.forEach((c, ci) => {
-        if (c === " " || c === "，") return;
-        const nx = allNoteXs[Math.min(ci, allNoteXs.length - 1)] ?? L.LEFT;
-        svg += `<text x="${nx}" y="${ry + L.H * 2 + 16 + lri * 18}" font-size="13" text-anchor="middle">${c}</text>`;
-      });
-    });
-  }
-  // 光标标记（在插入位置画一条线）
-  const cursorX = state.pos < allNoteXs.length ? allNoteXs[state.pos] : (allNoteXs.length ? allNoteXs[allNoteXs.length - 1] + 20 : L.LEFT);
-  svg += `<line x1="${PADX(cursorX)}" y1="${L.TOP - 6}" x2="${PADX(cursorX)}" y2="${L.TOP + L.H * 2 + (lyricRows.length ? lyricRows.length * 18 : 10)}" stroke="#c9a227" stroke-width="2" stroke-dasharray="3,3"/>`;
-  svg += `</svg>`;
-  $("#score").innerHTML = svg;
-  $("#txt").value = toText();
-}
-
-// 键盘输入：按用户方案（Q全 W二 E四 R八 T十六 Y三十二；空格=附点；选中音符后按键=批量改时值）
-function applyToSelection(fn) {
-  if (state.selSet.size) { for (const i of state.selSet) { const n = state.notes[i]; if (n) fn(n); } return true; }
-  return false;
-}
-document.addEventListener("keydown", (e) => {
-  if (e.target.tagName === "INPUT" || e.target.tagName === "TEXTAREA") return;
-  const k = e.key.toLowerCase();
-  // ⌥+数字 = 插入节奏型
-  if (e.altKey && /^[1-8]$/.test(k)) {
-    insertRhythm(Number(k) - 1); e.preventDefault(); return;
-  }
-  if (/^[1-7]$/.test(k)) {
-    addNote(Number(k), state.dur, state.dot, state.oct, state.tie, "n");
-    state.dot = false; e.preventDefault();
-  } else if (k === "0") { addNote(0, state.dur, false, 0, false, "r"); e.preventDefault(); }
-  else if (k === "q") { if (!applyToSelection(n => n.dur = 4)) state.dur = 4; render(); e.preventDefault(); }
-  else if (k === "w") { if (!applyToSelection(n => n.dur = 2)) state.dur = 2; render(); e.preventDefault(); }
-  else if (k === "e") { if (!applyToSelection(n => n.dur = 1)) state.dur = 1; render(); e.preventDefault(); }
-  else if (k === "r") { if (!applyToSelection(n => n.dur = 0.5)) state.dur = 0.5; render(); e.preventDefault(); }
-  else if (k === "t") { if (!applyToSelection(n => n.dur = 0.25)) state.dur = 0.25; render(); e.preventDefault(); }
-  else if (k === "y") { if (!applyToSelection(n => n.dur = 0.125)) state.dur = 0.125; render(); e.preventDefault(); }
-  else if (k === " ") { if (!applyToSelection(n => n.dot = !n.dot)) state.dot = !state.dot; render(); e.preventDefault(); }
-  else if (k === "z") { if (state.notes.length) { state.notes.splice(state.pos > 0 ? state.pos - 1 : 0, 1); if (state.pos > 0) state.pos--; render(); } e.preventDefault(); }
-  else if (k === "p") { play(); e.preventDefault(); }
-  else if (k === "o") { transpose(1); e.preventDefault(); }
-  else if (k === "i") { transpose(-1); e.preventDefault(); }
-  else if (k === "a") { state.pos = Math.max(0, state.pos - 1); render(); e.preventDefault(); }
-  else if (k === "f") { state.pos = Math.min(state.notes.length, state.pos + 1); render(); e.preventDefault(); }
-  else if (k === "backspace") { if (state.notes.length) { state.notes.splice(state.pos > 0 ? state.pos - 1 : 0, 1); if (state.pos > 0) state.pos--; render(); } e.preventDefault(); }
-  else if (k === "delete") { if (state.notes.length && state.pos < state.notes.length) { state.notes.splice(state.pos, 1); render(); } e.preventDefault(); }
-  else if (k === "tab") { const durs = [1, 0.5, 0.25, 2, 4]; state.dur = durs[(durs.indexOf(state.dur) + 1) % durs.length]; render(); e.preventDefault(); }
-});
-
-// 节奏型（一拍=1）：插入一组音符（音高=最近输入的音高，可再改）
-const RHYTHMS = [
-  { name: "四分均匀", durs: [1, 1, 1, 1] },
-  { name: "八分均匀", durs: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5] },
-  { name: "前八后十六", durs: [0.5, 0.25, 0.25] },
-  { name: "前十六后八", durs: [0.25, 0.25, 0.5] },
-  { name: "附点节奏", durs: [1.5, 0.5] },
-  { name: "三连音(近似)", durs: [0.25, 0.25, 0.25] },
-  { name: "小切分", durs: [0.5, 1, 0.5] },
-  { name: "二分+四分", durs: [2, 1, 1] },
-];
-function insertRhythm(idx) {
-  const r = RHYTHMS[idx]; if (!r) return;
-  const p = state.lastPitch || 1;
-  const arr = r.durs.map(dur => ({ pitch: p, dur, dot: false, oct: state.oct, tie: false, type: "n" }));
-  state.notes.splice(state.pos, 0, ...arr);
-  state.pos += arr.length;
-  render();
-}
-
-function updateDurUI() {
-  document.querySelectorAll("[data-dur]").forEach(b => b.classList.toggle("on", Number(b.dataset.dur) === state.dur));
-}
-
-// 工具栏
-document.querySelectorAll("[data-dur]").forEach(b => b.addEventListener("click", () => { state.dur = Number(b.dataset.dur); updateDurUI(); }));
-$("#tbDot").addEventListener("click", () => { state.dot = !state.dot; $("#tbDot").classList.toggle("on", state.dot); });
-$("#tbTie").addEventListener("click", () => { state.tie = !state.tie; $("#tbTie").classList.toggle("on", state.tie); });
-$("#tbOctU").addEventListener("click", () => { state.oct = 1; $("#tbOctU").classList.add("on"); $("#tbOctD").classList.remove("on"); });
-$("#tbOctD").addEventListener("click", () => { state.oct = -1; $("#tbOctD").classList.add("on"); $("#tbOctU").classList.remove("on"); });
-$("#tbRest").addEventListener("click", () => { addNote(0, state.dur, false, 0, false, "r"); });
-$("#undo").addEventListener("click", () => { if (state.notes.length) { state.notes.pop(); render(); } });
-$("#clear").addEventListener("click", () => { state.notes = []; render(); });
-$("#lyrics").addEventListener("input", render);
-$("#mTitle").addEventListener("input", render);
-$("#mAuthor").addEventListener("input", render);
-$("#mComposer").addEventListener("input", render);
-$("#fromTxt").addEventListener("click", () => fromText($("#txt").value));
-
-// 鼠标：点击选（Shift/Cmd 加选/反选），右键删选中，滚轮调八度
-$("#score").addEventListener("click", (e) => {
-  const t = e.target;
-  if (t.tagName === "text" && t.dataset.i !== undefined) {
-    const i = Number(t.dataset.i);
-    if (e.shiftKey || e.metaKey) {
-      if (state.selSet.has(i)) state.selSet.delete(i); else state.selSet.add(i);
-    } else {
-      state.selSet.clear(); state.selSet.add(i);
-    }
-    state.sel = i;
-    render();
-  } else if (t.tagName === "svg") {
-    state.selSet.clear(); render();
-  }
-});
-$("#score").addEventListener("contextmenu", (e) => {
-  e.preventDefault();
-  const t = e.target;
-  if (state.selSet.size) {
-    const arr = [...state.selSet].sort((a, b) => b - a);
-    arr.forEach(i => state.notes.splice(i, 1));
-    state.selSet.clear();
-    render();
-  } else if (t.tagName === "text" && t.dataset.i !== undefined) {
-    state.notes.splice(Number(t.dataset.i), 1);
-    render();
-  }
-});
-$("#score").addEventListener("wheel", (e) => {
-  e.preventDefault();
-  const t = e.target;
-  let targets = state.selSet.size ? [...state.selSet] : (t.tagName === "text" && t.dataset.i !== undefined ? [Number(t.dataset.i)] : []);
-  if (!targets.length) return;
-  const dir = e.deltaY < 0 ? 1 : -1; // 上滚=高八度
-  targets.forEach(i => { const n = state.notes[i]; if (n && n.type === "n") n.oct += dir; });
-  render();
-});
-
-document.querySelectorAll("[data-ry]").forEach(b => b.addEventListener("click", () => insertRhythm(Number(b.dataset.ry))));
-
-// MIDI 试听
-let ac = null;
-function play() {
-  const f = { 1: 523.25, 2: 587.33, 3: 659.25, 4: 698.46, 5: 783.99, 6: 880, 7: 987.77 };
-  if (!ac) ac = new (window.AudioContext || window.webkitAudioContext)();
-  let t = ac.currentTime + 0.1;
-  state.notes.forEach(n => {
-    if (n.type === "r") { t += n.dur * 0.5; return; }
-    const o = ac.createOscillator(), g = ac.createGain();
-    o.frequency.value = f[n.pitch] * Math.pow(2, n.oct);
-    o.connect(g); g.connect(ac.destination);
-    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.2, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + n.dur * 0.5);
-    o.start(t); o.stop(t + n.dur * 0.5 + 0.05);
-    t += n.dur * 0.5;
-  });
-}
-$("#play").addEventListener("click", play);
 
 function svgToCanvas(svg) {
   const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml" }));
@@ -499,19 +134,6 @@ function svgToCanvas(svg) {
     img.src = url;
   });
 }
-function currentSvg() { return $("#score").querySelector("svg").outerHTML; }
-$("#dlSvg").addEventListener("click", () => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([currentSvg()], { type: "image/svg+xml" })); a.download = "简谱.svg"; a.click(); });
-$("#dlPng").addEventListener("click", async () => { const c = await svgToCanvas(currentSvg()); const a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "简谱.png"; a.click(); });
-$("#dlPdf").addEventListener("click", () => {
-  const win = window.open("", "_blank");
-  win.document.write(`<html><head><title>简谱</title><style>@page{size:A4;margin:15mm}body{font-family:'PingFang SC','Microsoft YaHei';margin:0}svg{width:100%;height:auto}</style></head><body>${currentSvg()}</body></html>`);
-  win.document.close(); setTimeout(() => win.print(), 400);
-});
-
-// 示例谱
-fromText("| 5 6 1' 2' | 3' 2' 1' 6 | 5 - 3 5 | 1' - - 0 |");
-render();
-
 
 // ============ 框架编辑区：按版面框架（页眉 + 系统1-4） ============
 function parseMelody(txt) {
@@ -637,16 +259,6 @@ function renderFw() {
 }
 
 function currentFwSvg() { return $("#fwScore").querySelector("svg").outerHTML; }
-function setMode(mode) {
-  const free = mode === "free";
-  $("#wrapFree").style.display = free ? "" : "none";
-  $("#wrapFw").style.display = free ? "none" : "";
-  $("#modeFree").classList.toggle("on", free);
-  $("#modeFw").classList.toggle("on", !free);
-  if (free) render(); else renderFw();
-}
-$("#modeFree").addEventListener("click", () => setMode("free"));
-$("#modeFw").addEventListener("click", () => setMode("fw"));
 document.querySelectorAll("#wrapFw .mel-input, #wrapFw .fw-lyr input, #wrapFw input").forEach(el => el.addEventListener("input", renderFw));
 $("#fwClear").addEventListener("click", () => {
   document.querySelectorAll("#wrapFw .mel-input").forEach(t => t.value = "");
@@ -691,6 +303,26 @@ $("#fwPdf").addEventListener("click", () => {
   win.document.close(); win.focus(); win.print();
 });
 
+// 框架谱面试听（按系统顺序播放）
+function fwPlay() {
+  const fw = fwState();
+  const f = { 1: 523.25, 2: 587.33, 3: 659.25, 4: 698.46, 5: 783.99, 6: 880, 7: 987.77 };
+  let ac = window.__fwAc;
+  if (!ac) { ac = new (window.AudioContext || window.webkitAudioContext)(); window.__fwAc = ac; }
+  if (ac.state === "suspended") ac.resume();
+  let t = ac.currentTime + 0.1;
+  fw.systems.forEach(s => s.notes.forEach(n => {
+    if (n.type === "r") { t += n.dur * 0.5; return; }
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.frequency.value = (f[n.pitch] || 523.25) * Math.pow(2, n.oct);
+    o.connect(g); g.connect(ac.destination);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.2, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + n.dur * 0.5);
+    o.start(t); o.stop(t + n.dur * 0.5 + 0.05);
+    t += n.dur * 0.5;
+  }));
+}
+$("#fwPlay").addEventListener("click", fwPlay);
+renderFw();
 </script>
 </body>
 </html>
