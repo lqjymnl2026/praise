@@ -35,12 +35,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans G
 #fwScore{overflow:auto;max-height:calc(100vh - 130px);min-height:70vh;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
 #fwScore svg{max-width:100%}
 textarea{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12px;font-family:ui-monospace,Menlo,monospace;min-height:60px;width:100%;outline:none;resize:vertical}
+
+.tpl-btn{border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:8px;padding:5px 12px;font-size:13px;cursor:pointer}
+.tpl-btn.on{background:#ffd970;color:#1e2942;border-color:#ffd970;font-weight:600}
+.duo-voice{font-size:14px;min-height:42px;font-family:ui-monospace,Menlo,monospace}
+.duo-lyr input{border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:12px;outline:none;width:100%}
+#duoScore{overflow:auto;max-height:calc(100vh - 130px);min-height:70vh;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px}
+#duoScore svg{max-width:100%}
 </style>
 </head>
 <body>
 <div class="top">
-  <h1>🎼 简谱传统圣诗打谱（传统圣诗模版）</h1>
+  <h1>🎼 简谱圣诗打谱</h1>
   <span>
+    <button class="tpl-btn on" id="tplClassic">传统圣诗模版</button>
+    <button class="tpl-btn" id="tplDuo">二声部模版</button>
     <a href="/jianpu">📝 文本编辑器</a>
     <a href="/#/collection">返回后台</a>
   </span>
@@ -118,6 +127,82 @@ textarea{border:1px solid var(--line);border-radius:8px;padding:8px;font-size:12
     </div>
   </div>
 </div>
+
+<!-- ============ 二声部模版（按《主恩更多》版面框架分析） ============ -->
+<div class="wrap" id="wrapDuo" style="display:none">
+  <div class="left">
+    <div class="card">
+      <h2>📋 页眉区（标题 · 调号速度 · 词曲制谱）</h2>
+      <div class="meta">
+        <input id="duoTitle" placeholder="歌名（大字居中）" value="主恩更多">
+        <input id="duoEn" placeholder="英文副题" value="HIS GRACE ABOUNDETH MORE">
+        <input id="duoKey" placeholder="调号 1=A" value="1=A">
+        <input id="duoTempo" placeholder="速度 =111" value="=111">
+      </div>
+      <div class="meta mt8">
+        <input id="duoLyricist" placeholder="作词" value="作词：卡特•厄尔默">
+        <input id="duoComposer" placeholder="作曲" value="作曲：威廉•柯克帕特里克">
+        <input id="duoEngraver" placeholder="制谱" value="制谱：钻石">
+        <input id="duoPage" placeholder="页码" value="第1页">
+      </div>
+      <input id="duoFooter" class="mt8" placeholder="页脚（诗班用途·总页数）" value="柳市沐恩堂雅歌诗班专用《主恩更多》 总2页，第1页" style="border:1px solid var(--line);border-radius:6px;padding:6px 8px;font-size:12px;outline:none;width:100%">
+      <div class="tb-row mt8">
+        <button class="btn btn-gold" id="duoFill">✨ 填入示例（主恩更多）</button>
+        <button class="btn" id="duoClear">清空</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="fw-head"><h2>🎵 正歌1 · 女声</h2><span class="fw-num">上声部 + 下声部 + 歌词</span></div>
+      <textarea class="duo-voice" placeholder="上声部旋律：(0 0 5 1 1 8 - 3 1 8 4 | 5 1 5 4 ..."></textarea>
+      <textarea class="duo-voice mt8" placeholder="下声部旋律：5 6 5 1 3 5 1 1 3 - - 1 1 - 5 1 9 7 1 1 7 6 1 5 - - 0 0 0"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：女声：何等希奇一位救主，我所寻着乃主耶稣；"></div>
+    </div>
+
+    <div class="card">
+      <div class="fw-head"><h2>🎵 正歌2 · 男声</h2><span class="fw-num">上声部 + 下声部 + 歌词</span></div>
+      <textarea class="duo-voice" placeholder="上声部旋律：5 6 5 1 8 5 1 3 - - 1 1 - 5 1 9 7 1 1 1 7 8 1 5 - - 1 5 0 0"></textarea>
+      <textarea class="duo-voice mt8" placeholder="下声部旋律：5 6 5 3 5 1 3 - - 1 1 - 3 2 2 5 7 5 7 1 - - 0 0 0 0 0 0"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：男声：主寻我时我是罪人，毫无善行在手我心；"></div>
+    </div>
+
+    <div class="card">
+      <div class="fw-head"><h2>🎵 副歌1 · 女声</h2><span class="fw-num">旋律 + 歌词</span></div>
+      <textarea class="duo-voice" placeholder="女声旋律：1 0 0 5 5 - 5 3 | 4 5 6 - - 6 - 9 5 1 1 1 7 1 1 2 - - 1 2 - 5"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：女声：主恩实在更多，主恩实在更多，我"></div>
+    </div>
+
+    <div class="card">
+      <div class="fw-head"><h2>🎵 副歌1 · 男声</h2><span class="fw-num">旋律 + 歌词</span></div>
+      <textarea class="duo-voice" placeholder="男声旋律：1 0 0 0 0 0 0 0 0 5 1 6 - 9 1 6 | 7 1 5 - 5 6 | 7 1 2 - 1 7 = 5"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：男声：主恩实在更多，实在更多，更多我"></div>
+    </div>
+
+    <div class="card">
+      <div class="fw-head"><h2>🎵 副歌2 · 女声</h2><span class="fw-num">旋律 + 歌词</span></div>
+      <textarea class="duo-voice" placeholder="女声旋律：1 5 6 1 5 1 1 2 1 2 1 7 - 2 1 = 1 5 - 4 8 - -"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：女声：主血涂抹，主恩实在"></div>
+    </div>
+
+    <div class="card">
+      <div class="fw-head"><h2>🎵 副歌2 · 男声</h2><span class="fw-num">旋律 + 歌词</span></div>
+      <textarea class="duo-voice" placeholder="男声旋律：1 3 - 3 1 3 | 4 8 1 6 - 6 1 2 - - 1 2 - 1 1 7 1 7 1 2 1 1 - - 1 1 0 0 1"></textarea>
+      <div class="duo-lyr mt8"><input placeholder="歌词：男声：罪虽多主血涂抹，主恩实在更多。"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>🖼 二声部模版预览（A4 所见即所得）</h2>
+    <div id="duoScore"></div>
+    <div class="tb-row mt8">
+      <button class="btn btn-green" id="duoPlay">🔊 试听</button>
+      <button class="btn" id="duoPng">PNG</button>
+      <button class="btn" id="duoSvg">SVG</button>
+      <button class="btn btn-gold" id="duoPdf">🖨 PDF</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const $ = (s) => document.querySelector(s);
 
@@ -327,6 +412,160 @@ function fwPlay() {
 }
 $("#fwPlay").addEventListener("click", fwPlay);
 renderFw();
+
+// ============ 二声部模版（按《主恩更多》版面框架） ============
+function setTpl(name) {
+  const classic = name === "classic";
+  $("#wrapFw").style.display = classic ? "" : "none";
+  $("#wrapDuo").style.display = classic ? "none" : "";
+  $("#tplClassic").classList.toggle("on", classic);
+  $("#tplDuo").classList.toggle("on", !classic);
+  if (classic) renderFw(); else renderDuo();
+}
+$("#tplClassic").addEventListener("click", () => setTpl("classic"));
+$("#tplDuo").addEventListener("click", () => setTpl("duo"));
+
+function duoSystems() {
+  const cards = Array.from(document.querySelectorAll("#wrapDuo .left > .card")).slice(1);
+  return cards.map(c => ({
+    label: (c.querySelector(".fw-head h2")?.textContent || "").trim(),
+    mels: Array.from(c.querySelectorAll("textarea.duo-voice")).map(t => t.value),
+    lyrics: Array.from(c.querySelectorAll(".duo-lyr input")).map(i => i.value.trim()).filter(Boolean)
+  }));
+}
+function renderDuo() {
+  const A4W = 794, A4H = 1123;
+  const systems = duoSystems();
+  const beatsPerBar = 4, W = 28, maxBars = 6, barW = beatsPerBar * W + 6;
+  const contentW = maxBars * barW;
+  const LEFT = Math.max(60, Math.round((A4W - contentW) / 2));
+  const headerH = 132, bottomPad = 66;
+  let natural = 0;
+  systems.forEach(s => { natural += 34 + s.mels.length * 46 + s.lyrics.length * 26 + 20; });
+  const availH = A4H - headerH - bottomPad;
+  const scale = Math.min(1.2, Math.max(0.7, availH / natural));
+  const gap = Math.max(12, (availH - natural * scale) / (systems.length + 1));
+  const noteFont = Math.round(21 * scale), lyrFont = Math.round(12.5 * scale);
+
+  const title = $("#duoTitle").value.trim() || "未命名";
+  const en = $("#duoEn").value.trim();
+  const keyTxt = [$("#duoKey").value.trim(), $("#duoTempo").value.trim()].filter(Boolean).join(" ");
+  const lyricist = $("#duoLyricist").value.trim(), composer = $("#duoComposer").value.trim(), engraver = $("#duoEngraver").value.trim();
+  const page = $("#duoPage").value.trim(), footer = $("#duoFooter").value.trim();
+
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${A4W}" height="${A4H}" viewBox="0 0 ${A4W} ${A4H}" style="background:#fff">`;
+  // ===== 页眉 =====
+  if (keyTxt) svg += `<text x="24" y="30" font-size="15" fill="#333" font-weight="600">${keyTxt}</text>`;
+  let ryt = 30;
+  [lyricist, composer, engraver].filter(Boolean).forEach(t => {
+    svg += `<text x="${A4W-24}" y="${ryt}" font-size="13" text-anchor="end" fill="#555">${t}</text>`; ryt += 22;
+  });
+  if (page) svg += `<text x="${A4W-24}" y="82" font-size="13" text-anchor="end" fill="#333">${page}</text>`;
+  svg += `<text x="${A4W/2}" y="58" font-size="30" font-weight="bold" text-anchor="middle">${title}</text>`;
+  if (en) svg += `<text x="${A4W/2}" y="80" font-size="14" text-anchor="middle" fill="#666">${en}</text>`;
+  svg += `<line x1="24" y1="100" x2="${A4W-24}" y2="100" stroke="#9aa5b5" stroke-width="1.2"/>`;
+
+  // ===== 系统区 =====
+  let y = headerH + gap;
+  systems.forEach((s, si) => {
+    const blockH = (34 + s.mels.length * 46 + s.lyrics.length * 26 + 20) * scale;
+    const ry = y;
+    svg += `<rect x="20" y="${ry}" width="${A4W-40}" height="${blockH}" rx="8" fill="${si%2 ? "#f6f8fc" : "#fbf6ec"}" stroke="#d9e1ec" stroke-width="1.2"/>`;
+    svg += `<text x="30" y="${ry + 16*scale}" font-size="${Math.round(12*scale)}" fill="#5b6b85" font-weight="700">${s.label}</text>`;
+    const melX0 = LEFT, melX1 = LEFT + contentW;
+    const allXs = [];
+    // 声部旋律行
+    s.mels.forEach((mel, vi) => {
+      const melY = ry + 32 * scale + vi * 46 * scale;
+      svg += `<line x1="${melX0}" y1="${melY}" x2="${melX1}" y2="${melY}" stroke="${vi===0 ? "#b7c0ce" : "#a99bc4"}" stroke-width="1"/>`;
+      for (let b = 0; b <= maxBars; b++) {
+        const bx = melX0 + b * barW;
+        svg += `<line x1="${bx}" y1="${melY-6}" x2="${bx}" y2="${melY+6}" stroke="#c3cad6" stroke-width="1"/>`;
+      }
+      const notes = parseMelody(mel);
+      let x = melX0, beats = 0, barIdx = 0;
+      notes.forEach((n, i) => {
+        if (i > 0 && beats >= beatsPerBar - 0.001) { barIdx++; x = melX0 + Math.min(barIdx, maxBars) * barW; beats = 0; }
+        const nx = x, ny = melY + 7;
+        if (n.type === "r") {
+          svg += `<text x="${nx}" y="${ny}" font-size="${Math.round(16*scale)}" text-anchor="middle" fill="#333">0</text>`;
+        } else {
+          svg += `<text x="${nx}" y="${ny}" font-size="${noteFont}" font-family="Georgia,serif" text-anchor="middle">${n.pitch}</text>`;
+          for (let k = 0; k < Math.abs(n.oct); k++) {
+            const cy = n.oct > 0 ? ny - 18 - k*6 : ny + 8 + k*6;
+            svg += `<circle cx="${nx}" cy="${cy}" r="2"/>`;
+          }
+          if (n.dot) svg += `<circle cx="${nx + n.dur*W + 5}" cy="${ny}" r="2.5"/>`;
+          if (n.tie) svg += `<path d="M ${nx+4} ${ny-4} Q ${nx+12} ${ny-13} ${nx+20} ${ny-4}" stroke="#000" fill="none" stroke-width="1.5"/>`;
+          if (n.dur <= 0.5) svg += `<line x1="${nx-8}" y1="${ny+9}" x2="${nx+8}" y2="${ny+9}" stroke="#000" stroke-width="1.4"/>`;
+          if (n.dur <= 0.25) svg += `<line x1="${nx-8}" y1="${ny+13}" x2="${nx+8}" y2="${ny+13}" stroke="#000" stroke-width="1.4"/>`;
+          if (n.dur >= 2) svg += `<line x1="${nx+5}" y1="${ny}" x2="${nx+n.dur*W-5}" y2="${ny}" stroke="#000" stroke-width="1.8"/>`;
+        }
+        if (vi === 0) allXs.push(nx);
+        x += n.dur * W + 6;
+        beats += n.dur;
+      });
+    });
+    // 歌词
+    const lyrY0 = ry + 32 * scale + s.mels.length * 46 * scale;
+    s.lyrics.forEach((lr, lri) => {
+      const ly = lyrY0 + lri * 26 * scale + 6;
+      const chars = Array.from(lr);
+      chars.forEach((c, ci) => {
+        if (c === " " || c === "，" || c === "。") return;
+        const nx = allXs[Math.min(ci, allXs.length - 1)] ?? melX0;
+        svg += `<text x="${nx}" y="${ly}" font-size="${lyrFont}" text-anchor="middle">${c}</text>`;
+      });
+    });
+    y += blockH + gap;
+  });
+  // ===== 页脚 =====
+  if (footer) svg += `<text x="${A4W/2}" y="${A4H-30}" font-size="12" text-anchor="middle" fill="#666">${footer}</text>`;
+  svg += `</svg>`;
+  $("#duoScore").innerHTML = svg;
+}
+function currentDuoSvg() { return $("#duoScore").querySelector("svg").outerHTML; }
+document.querySelectorAll("#wrapDuo textarea, #wrapDuo input").forEach(el => el.addEventListener("input", renderDuo));
+$("#duoClear").addEventListener("click", () => {
+  document.querySelectorAll("#wrapDuo textarea.duo-voice").forEach(t => t.value = "");
+  document.querySelectorAll("#wrapDuo .duo-lyr input").forEach(i => i.value = "");
+  renderDuo();
+});
+$("#duoFill").addEventListener("click", () => {
+  document.querySelectorAll("#wrapDuo textarea.duo-voice").forEach(t => { t.value = t.placeholder; });
+  document.querySelectorAll("#wrapDuo .duo-lyr input").forEach(i => { i.value = i.placeholder; });
+  renderDuo();
+});
+function duoPlay() {
+  const f = { 1: 523.25, 2: 587.33, 3: 659.25, 4: 698.46, 5: 783.99, 6: 880, 7: 987.77 };
+  let ac = window.__duoAc;
+  if (!ac) { ac = new (window.AudioContext || window.webkitAudioContext)(); window.__duoAc = ac; }
+  if (ac.state === "suspended") ac.resume();
+  let t = ac.currentTime + 0.1;
+  duoSystems().forEach(s => s.mels.forEach(mel => parseMelody(mel).forEach(n => {
+    if (n.type === "r") { t += n.dur * 0.4; return; }
+    const o = ac.createOscillator(), g = ac.createGain();
+    o.frequency.value = (f[n.pitch] || 523.25) * Math.pow(2, n.oct);
+    o.connect(g); g.connect(ac.destination);
+    g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.15, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + n.dur * 0.4);
+    o.start(t); o.stop(t + n.dur * 0.4 + 0.05);
+    t += n.dur * 0.4;
+  })));
+}
+$("#duoPlay").addEventListener("click", duoPlay);
+$("#duoPng").addEventListener("click", async () => {
+  const c = await svgToCanvas(currentDuoSvg());
+  const a = document.createElement("a"); a.href = c.toDataURL("image/png"); a.download = "二声部模版.png"; a.click();
+});
+$("#duoSvg").addEventListener("click", () => {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([currentDuoSvg()], { type: "image/svg+xml" })); a.download = "二声部模版.svg"; a.click();
+});
+$("#duoPdf").addEventListener("click", () => {
+  const win = window.open("", "_blank");
+  win.document.write(`<html><head><title>二声部模版</title><style>@page{size:A4;margin:15mm}body{font-family:'PingFang SC','Microsoft YaHei';margin:0}svg{width:100%;height:auto}</style></head><body>${currentDuoSvg()}</body></html>`);
+  win.document.close(); win.focus(); win.print();
+});
+
 </script>
 </body>
 </html>
